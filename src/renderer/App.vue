@@ -13,7 +13,6 @@
 <script>
 import Header from '@/components/Header'
 import Sider from '@/components/Sider'
-import {remote} from 'electron'
 
 export default {
   name: 'demo1',

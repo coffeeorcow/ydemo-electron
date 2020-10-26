@@ -3,7 +3,7 @@
     <div class="titlebar">
       <div class="titlebar-stoplight">
         <div class="titlebar-close">
-          <svg x="0px" y="0px" viewBox="0 0 6.4 6.4" @click="onWindowClose">
+          <svg x="0px" y="0px" viewBox="0 0 6.4 6.4" @click="onWindowClose()">
             <polygon
               fill="#4d0000"
               points="6.4,0.8 5.6,0 3.2,2.4 0.8,0 0,0.8 2.4,3.2 0,5.6 0.8,6.4 3.2,4 5.6,6.4 6.4,5.6 4,3.2"
@@ -42,24 +42,32 @@
 import { ipcRenderer } from 'electron'
 
 export default {
-  name: "Header",
-  data() {
-    return {};
+  name: 'Header',
+  data () {
+    return {}
   },
 
   methods: {
-    onWindowClose() {
-      alert('关闭将推出程序')
-      ipcRenderer.send('window-close')
+    onWindowClose () {
+      console.log(this)
+
+      this.$confirm({
+        title: '退出应用',
+        content: '点击确定将退出应用',
+        onOk () {
+          ipcRenderer.send('window-close')
+        },
+        onCancel () {}
+      })
     },
-    onWindowMinimize() {
+    onWindowMinimize () {
       ipcRenderer.send('window-min')
     },
-    onWindowMaximize() {
+    onWindowMaximize () {
       ipcRenderer.send('window-max')
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style scoped>
